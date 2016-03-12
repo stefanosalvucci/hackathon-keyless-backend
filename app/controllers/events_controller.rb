@@ -55,7 +55,9 @@ class EventsController < ApplicationController
       @event.requester = event_params["requester"] || params["requester"]
     end
 
-    if token = AndroidToken.first.try(:value) && (event_params["requester"] == 'edison' || params["requester"] == 'edison')
+    token = AndroidToken.first.try(:value)
+    if token.present? && (event_params["requester"] == 'edison' || params["requester"] == 'edison')
+      puts '##############################SENDING PUSH###################################'
       gcm = GCM.new(API_KEY)
       registration_ids = [token]
       options = {data: {status: @event.status}}

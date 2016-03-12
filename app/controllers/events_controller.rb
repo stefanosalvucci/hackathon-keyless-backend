@@ -51,7 +51,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.status = toggle_status
 
-    if token = AndroidToken.first.try(:value)
+    if token = AndroidToken.first.try(:value) && event_params["requester"] == 'edison'
       gcm = GCM.new(API_KEY)
       registration_ids = [token]
       options = {data: {status: @event.status}}

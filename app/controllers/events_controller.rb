@@ -39,8 +39,9 @@ class EventsController < ApplicationController
 
   def register_token
     token = event_params["token"]
-    token = AndroidToken.last || AndroidToken.create()
-    token.update_attribute(:value, token)
+    android_token = AndroidToken.last || AndroidToken.create()
+    android_token.update_attribute(:value, token)
+    render json: {status: :ok}
   end
 
   # POST /events

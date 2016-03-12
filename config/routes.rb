@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     collection do
       get 'toggle_door'
       get 'status_door'
+      get 'register_token'
     end
   end
 end

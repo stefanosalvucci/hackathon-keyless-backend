@@ -36,6 +36,8 @@ gem "twitter-bootstrap-rails"
 
 gem 'rails_12factor', group: :production
 
+gem 'gcm'
+
 group :development, :test do
 
   gem 'foreman'

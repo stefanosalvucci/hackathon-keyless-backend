@@ -1,5 +1,7 @@
 #hackathon mode ON
 
+API_KEY = "AIzaSyBrkSGKz1S4TLlGBQKgTOFb1A_DmKgJI7U"
+
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
@@ -35,12 +37,25 @@ class EventsController < ApplicationController
     end
   end
 
+  def register_token
+    token = params[:token]
+    token = AndroidToken.last || AndroidToken.create()
+    token.update_attribute(:token, token)
+  end
+
   # POST /events
   # POST /events.json
   # same as create
   def toggle_door
     @event = Event.new(event_params)
     @event.status = toggle_status
+
+    if token = AndroidToken.first.try(:token)
+      gcm = GCM.new(API_KEY)
+      registration_ids = [token]
+      options = {data: {status: @event.status}}
+      gcm.send(registration_ids, options)
+    end
 
     respond_to do |format|
       if @event.save

@@ -38,7 +38,7 @@ class EventsController < ApplicationController
   end
 
   def register_token
-    token = params["token"]
+    token = event_params["token"]
     token = AndroidToken.last || AndroidToken.create()
     token.update_attribute(:token, token)
   end
@@ -117,6 +117,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:status, :requester)
+      params.require(:event).permit(:status, :requester, :token)
     end
 end

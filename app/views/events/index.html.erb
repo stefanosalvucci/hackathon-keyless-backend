@@ -26,4 +26,6 @@
 
 <br>
 
-<%= link_to 'New Event', new_event_path %>
+<% if Event.count.zero? %>
+  <%= link_to 'New Event', new_event_path %>
+<% end %>

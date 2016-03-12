@@ -51,7 +51,11 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.status = toggle_status
 
-    if token = AndroidToken.first.try(:value) && event_params["requester"] == 'edison'
+    if @event.requester.nil?
+      @event.requester = event_params["requester"] || params["requester"]
+    end
+
+    if token = AndroidToken.first.try(:value) && (event_params["requester"] == 'edison' || params["requester"] == 'edison')
       gcm = GCM.new(API_KEY)
       registration_ids = [token]
       options = {data: {status: @event.status}}
@@ -118,7 +122,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      puts params
       params.require(:event).permit(:status, :requester, :token)
     end
 end

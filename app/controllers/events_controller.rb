@@ -40,7 +40,7 @@ class EventsController < ApplicationController
   def register_token
     token = event_params["token"]
     token = AndroidToken.last || AndroidToken.create()
-    token.update_attribute(:token, token)
+    token.update_attribute(:value, token)
   end
 
   # POST /events
@@ -50,7 +50,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.status = toggle_status
 
-    if token = AndroidToken.first.try(:token)
+    if token = AndroidToken.first.try(:value)
       gcm = GCM.new(API_KEY)
       registration_ids = [token]
       options = {data: {status: @event.status}}

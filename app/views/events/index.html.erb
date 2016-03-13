@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Events</h1>
+<h2 class="text-center">Events in real time</h2>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Status</th>
       <th>Requester</th>
-      <th colspan="3"></th>
+      <th>Time</th>
     </tr>
   </thead>
 
@@ -16,9 +16,7 @@
       <tr>
         <td><%= event.status %></td>
         <td><%= event.requester %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= event.created_at.strftime("%d/%m/%Y - %h:%m") %></td>
       </tr>
     <% end %>
   </tbody>

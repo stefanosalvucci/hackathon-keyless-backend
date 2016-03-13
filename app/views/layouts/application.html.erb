@@ -8,7 +8,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <img alt="Brand" src="<%= image_url('keyless.png') %>" style="width: 30px;margin-top: -5px; display: inline-block;">
+        <span style="display: inline-block; color: black;">Keyless</span>
+      </a>
+    </div>
+  </div>
+</nav>
 <%= yield %>
 
 </body>

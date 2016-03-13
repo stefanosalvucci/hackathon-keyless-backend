@@ -16,7 +16,7 @@
       <tr>
         <td><%= event.status %></td>
         <td><%= event.requester %></td>
-        <td><%= event.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+        <td><%= (event.created_at + 1.hour).strftime("%d/%m/%Y - %H:%M") %></td>
       </tr>
     <% end %>
   </tbody>
